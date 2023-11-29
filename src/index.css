@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600&display=swap');
+
+:root {
+  font-family: Archivo;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #020202;
+  background-color: #fff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ 
