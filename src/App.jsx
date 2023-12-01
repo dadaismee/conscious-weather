@@ -20,5 +20,5 @@ const Wrapper = styled.div`
 
 const Heading = styled.h1`
   font-size: 72px;
-  margin: 30px 0 10px 60px;
+  margin: 40px 0 10px 60px;
 `

@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   margin: 0px 60px 0px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2.89vw;
+  gap: 3.5vw;
   justify-content: space-between;
 `;
 
