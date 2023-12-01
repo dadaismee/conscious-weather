@@ -15,10 +15,11 @@ const Wrapper = styled.button`
   font-size: 36px;
   font-family: inherit;
   border: none;
+  background-color: #000;
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 
   &:hover {
-    background-color: #000;
     cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.95);
   }
 `;

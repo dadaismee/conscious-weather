@@ -20,9 +20,7 @@ const Visualization = () => {
   const tenY = getYear(new Date(), 10);
   const twentyY = getYear(new Date(), 20);
 
-  
   // Weather calls
-
   const fetchCurrent = useCallback(async () => {
     const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_Key}`;
     if (!city) {
@@ -74,8 +72,6 @@ const Visualization = () => {
     }
       await fetchTenY();
       await fetchTwentyY();
-
- 
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
@@ -86,6 +82,7 @@ const Visualization = () => {
     event.preventDefault(); 
     await fetchCurrent();
     setWeatherIsShown(true);
+    console.log(twentyYWeather);
     console.log('The weather in', city, 'is', currentWeather);
   };
 
@@ -96,31 +93,46 @@ const Visualization = () => {
   return (
     <Wrapper>
       {Boolean(!weatherIsShown) ? (
-        <Form onSubmit={handleClick}>
-          <Input
-            id='city'
-            type='text'
-            placeholder='Type your city'
-            onChange={handleChange}
-            value={city}
-          />
-          <Button onClick={handleClick}>Get Weather</Button>
-        </Form>
+        <FormContainer>
+          <Form onSubmit={handleClick}>
+            <Input
+              id='city'
+              type='text'
+              placeholder='Type your city'
+              onChange={handleChange}
+              value={city}
+            />
+            <Button onClick={handleClick}>Get Weather</Button>
+          </Form>
+        </FormContainer>
       ) : (
         <VertFlex>
-          <WeatherLineFlex>
-            <p>now</p>   
-            <p>{currentWeather.weather}</p>   
-            <p>{currentWeather.temp}°</p>   
-          </WeatherLineFlex>
-          <WeatherLineFlex>
-            <p>{tenY.slice(0, 4)}</p>
-            <p>{tenYWeather}°</p>
-          </WeatherLineFlex>
-          <WeatherLineFlex>
-            <p>{twentyY.slice(0, 4)}</p>
-            <p>{twentyYWeather}°</p>
-          </WeatherLineFlex>
+          <WeatherContainer>
+            <WeatherLineFlex>
+              <p>now</p>   
+              <p>{currentWeather.weather}</p>   
+              <p>{currentWeather.temp}°</p>   
+            </WeatherLineFlex>
+            <WeatherLineFlex>
+              <p>{tenY.slice(0, 4)}</p>
+              <p>{tenYWeather}°</p>
+            </WeatherLineFlex>
+            <WeatherLineFlex>
+              <p>{twentyY.slice(0, 4)}</p>
+              <p>{twentyYWeather}°</p>
+            </WeatherLineFlex>
+          </WeatherContainer>
+          <Form onSubmit={handleClick}>
+            <Input
+              id='city'
+              type='text'
+              placeholder='Type your city'
+              onChange={handleChange}
+              value={city}
+            />
+            <Button onClick={handleClick}>Get Weather</Button>
+        </Form>
+  
         </VertFlex>
         )
       }
@@ -131,26 +143,27 @@ const Visualization = () => {
 const Wrapper = styled.div`
   background-color: #8fc7b3;
   border-radius: 25px;
-  width: 100%;
   height: 66vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 const Form = styled.form`
   width: 100%;
-  margin: 0px 40px;
+  margin: 0px 0px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-self: center;
 `;
 
 const Input = styled.input`
-  border: none;
+  border: solid 2px black;
   border-radius: var(--border-radius);
   text-indent: 20px;
   padding: 20px;
+  background-color: transparent;
+  color: black;
   font-size: 36px;
 `;
 
@@ -170,4 +183,24 @@ const VertFlex = styled.div`
   justify-content: space-between;
 
 `
+const FormContainer = styled.div`
+  margin: 0px 40px;
+  width: 100%;
+  display: flex;
+  align-self: center;
+`
+const nowcolor = "#5679D2";
+const tenYcolor = "#A6F1B2";
+const twentyYcolor = "#1BAECE";
+
+const WeatherContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(180deg, ${nowcolor}, ${tenYcolor}, ${twentyYcolor});
+  height: 100%;
+  padding: 20px;
+  border-radius: var(--border-radius);
+`
+
 export default Visualization;
