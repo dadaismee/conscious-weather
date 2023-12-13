@@ -27,20 +27,24 @@ const Visualization = () => {
   // Color selection logic
   const getColor = (weather) => {
     let color;
-    if (weather <= 0) color = '#5679D2';
-    else if (weather > 0 && weather <= 5) color = '#0f87a6';
-    else if (weather > 5 && weather <= 10) color = '#43ff64d9';
-    else if (weather > 10 && weather <= 20) color = '#eeaeca';
+    if (weather <= -10) color = '#3055B4';
+    else if (weather > -10 && weather <= 0) color = '#0f87ff';
+    else if (weather > 0 && weather <= 10) color = '#1BAECE';
+    else if (weather > 10 && weather <= 15) color = '#A6F1B2';
+    else if (weather > 15 && weather <= 20) color = '#F1E9A6';
+    else if (weather > 20 && weather <= 25) color = '#F1C1A6';
+    else if (weather > 25 && weather <= 30) color = '#DF7171';
+    else if (weather > 30) color = '#C04646';
     return color;
   };
 
   const getTrend = (now, ten, twenty) => {
     let trend = '';
-    if (now < ten && ten < twenty) trend = '#71D0DD'; //colding
-    else if (now > ten && ten >= twenty) trend = '#E76868'; //warming
-    else if (now < ten && ten >= twenty) trend = '#ACADAD'; //no trend
+    if (now < ten && ten < twenty) trend = '#468CC0'; //colding
+    else if (now > ten && ten >= twenty) trend = '#AD3737'; //warming
+    else if (now < ten && ten >= twenty) trend = '#fff'; //no trend
     else if ((now > ten && ten <= twenty) || (now < ten && ten >= twenty))
-      trend = '#ACADAD'; //no trend
+      trend = '#fff'; //no trend
     else trend = '#8FC7B3';
     console.log(now, ten, twenty);
     console.log(-15 < -13 && -13 < -6);
@@ -214,6 +218,7 @@ const Wrapper = styled.div`
   background-color: ${({ bgcolor }) => bgcolor};
   border-radius: 25px;
   height: 66vh;
+  border: ${({bgcolor}) => bgcolor === "#fff" ? "2px solid black" : "none"};
   display: flex;
   justify-content: center;
 `;
