@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from './index';
+import { motion } from 'framer-motion';
+
 
 const Visualization = () => {
   const [city, setCity] = useState('');
@@ -42,9 +44,9 @@ const Visualization = () => {
     let trend = '';
     if (now < ten && ten < twenty) trend = '#468CC0'; //colding
     else if (now > ten && ten >= twenty) trend = '#AD3737'; //warming
-    else if (now < ten && ten >= twenty) trend = '#fff'; //no trend
+    else if (now < ten && ten >= twenty) trend = '#B6B6B6'; //no trend
     else if ((now > ten && ten <= twenty) || (now < ten && ten >= twenty))
-      trend = '#fff'; //no trend
+      trend = '#B6B6B6'; //no trend
     else trend = '#8FC7B3';
     console.log(now, ten, twenty);
     console.log(-15 < -13 && -13 < -6);
@@ -134,7 +136,19 @@ const Visualization = () => {
     // console.log(now, ten, twenty);
 
     return (
-      <WeatherContainer now={now} ten={ten} twenty={twenty}>
+      <WeatherContainer now={now} ten={ten} twenty={twenty}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+          backgroundColor: `linear-gradient(180deg, ${now}, ${ten}, ${twenty})`,
+          transition: {
+            ease: [0.165, 0.84, 0.44, 1],
+            duration: 3,
+          },
+        }}
+        viewport={{ once: true }}>
         <WeatherLineFlex style={{ alignItems: 'center' }}>
           <p>now</p>
           {/* <p style={{ fontSize: '24px', color: 'gray' }}>
@@ -155,8 +169,22 @@ const Visualization = () => {
   };
 
   return (
-    <Wrapper bgcolor={getTrend(currentTemp, tenYWeather, twentyYWeather)}>
-      {console.log(getTrend(currentTemp, tenYWeather, twentyYWeather))}
+    <Wrapper 
+      bgcolor={getTrend(currentTemp, tenYWeather, twentyYWeather)}
+      initial={{
+          opacity: 0,
+          y: 10,
+        }}
+        animate={{
+          opacity: 1,
+          backgroundColor: getTrend(currentTemp, tenYWeather, twentyYWeather),
+          y: 0,
+          transition: {
+            ease: [0.165, 0.84, 0.44, 1],
+            duration: 2,
+          },
+        }}
+        viewport={{ once: true }}>
       {Boolean(!weatherIsShown) ? (
         <FormContainer>
           <Form onSubmit={handleClick}>
@@ -172,26 +200,6 @@ const Visualization = () => {
         </FormContainer>
       ) : (
         <VertFlex>
-          {/* <WeatherContainer
-            now={nowColor}
-            ten={tenYColor}
-            twenty={twentyYColor}>
-            <WeatherLineFlex>
-              <p>now</p>
-              <p style={{ fontSize: '24px', color: 'gray' }}>
-                {currentWeather.weather}
-              </p>
-              <p>{currentWeather.temp}°</p>
-            </WeatherLineFlex>
-            <WeatherLineFlex>
-              <p>{tenY.slice(0, 4)}</p>
-              <p>{tenYWeather}°</p>
-            </WeatherLineFlex>
-            <WeatherLineFlex>
-              <p>{twentyY.slice(0, 4)}</p>
-              <p>{twentyYWeather}°</p>
-            </WeatherLineFlex>
-          </WeatherContainer> */}
           <RenderWeatherContainer
             now={nowColor}
             ten={tenYColor}
@@ -214,11 +222,10 @@ const Visualization = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   background-color: ${({ bgcolor }) => bgcolor};
   border-radius: 25px;
   height: 66vh;
-  border: ${({bgcolor}) => bgcolor === "#fff" ? "2px solid black" : "none"};
   display: flex;
   justify-content: center;
 `;

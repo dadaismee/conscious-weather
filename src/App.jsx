@@ -2,10 +2,25 @@ import React from 'react';
 import './App.css';
 import styled from 'styled-components';
 import { Main, Footer } from './components/index';
+import { motion } from 'framer-motion';
 
 const App = () => {
   return (
-    <Wrapper>
+    <Wrapper
+      initial={{
+          opacity: 0,
+          y: 10,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          transition: {
+            ease: [0.165, 0.84, 0.44, 1],
+            duration: 1,
+            delay: 0.25,
+          },
+        }}
+        viewport={{ once: true }}>
       <Heading>Conscious weather</Heading>
       <Main/>
       <Footer/>
@@ -14,7 +29,7 @@ const App = () => {
 
 export default App;
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   height: 100%;
 `
 
