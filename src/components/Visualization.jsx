@@ -48,8 +48,6 @@ const Visualization = () => {
     else if ((now > ten && ten <= twenty) || (now < ten && ten >= twenty))
       trend = '#B6B6B6'; //no trend
     else trend = '#8FC7B3';
-    console.log(now, ten, twenty);
-    console.log(-15 < -13 && -13 < -6);
     return trend;
   };
 
