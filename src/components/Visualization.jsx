@@ -16,7 +16,7 @@ const Visualization = () => {
   const [currentTemp, setCurrentTemp] = useState();
 
   const [weatherIsShown, setWeatherIsShown] = useState(false);
-  const API_Key = process.env.API_Key;
+  const API_Key = process.env.API_KEY;
 
   const getYear = (date, years) => {
     date.setFullYear(date.getFullYear() - years);
